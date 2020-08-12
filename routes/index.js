@@ -6,7 +6,7 @@ const bcrypt = require("bcrypt");
 const User = require("../models/user.model");
 const jwt = require("jsonwebtoken");
 const Order = require("../models/order.model");
-const verifyToken = require("./verifyToken");
+const verifyToken = require("../middlewares/verifyToken");
 const jsonParser = bodyParser.json();
 
 router.get("/products", (req, res) => {
