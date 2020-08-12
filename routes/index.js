@@ -30,7 +30,14 @@ router.get("/products/:id", (req, res) => {
 
 router.post("/product", jsonParser, (req, res) => {
   const product = req.body;
-  res.send(product);
+  const prod = new Product(product);
+  prod.save((err, savedObj) => {
+    if (err) {
+      console.log(err);
+    } else {
+      res.send(product);
+    }
+  });
 });
 
 router.post("/register", async (req, res) => {
@@ -76,6 +83,7 @@ router.post("/login", async (req, res) => {
 router.post("/order", (req, res) => {
   const cart = req.body;
   const order = new Order(cart);
+
   order.save((err, doc) => {
     if (err) {
       console.log(err);
@@ -84,7 +92,63 @@ router.post("/order", (req, res) => {
     }
   });
 
-  
+  Order.aggregate([
+    {
+      $group: {
+        _id: {
+          username: { $username: "$username" },
+          totalAmount: { $sum: { $multiply: ["$price", "$quantity"] } },
+        },
+      },
+    },
+  ]);
+});
+
+router.put("/product/:id", (req, res) => {
+  const { name, price, quantity } = req.body;
+  const id = req.params.id;
+
+  Product.findOne({ _id: id }, (err, foundObj) => {
+    if (err) {
+      console.log(err);
+    } else {
+      if (!foundObj) {
+        res.send(404).send("Product not found");
+      } else {
+        if (name) {
+          foundObj.name = name;
+        }
+        if (price) {
+          foundObj.price = price;
+        }
+        if (quantity) {
+          foundObj.quantity = quantity;
+        }
+        foundObj.save((err, updatedObj) => {
+          if (err) {
+            console.log(err);
+          } else {
+            res.send(updatedObj);
+          }
+        });
+      }
+    }
+  });
+});
+
+router.delete("/delete/:id", (req, res) => {
+  const id = req.params.id;
+  Product.deleteOne({ _id: id }, (err, foundObj) => {
+    if (err) {
+      console.log(err);
+    } else {
+      if (!foundObj) {
+        res.send(404).send();
+      } else {
+        res.send("deleted");
+      }
+    }
+  });
 });
 
 module.exports = router;
