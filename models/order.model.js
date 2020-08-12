@@ -5,7 +5,7 @@ const UserSchema = mongoose.model("User").schema;
 
 const OrderSchema = new Schema({
   products: [ProductSchema],
-  user: UserSchema,
+  user: UserSchema
 });
 
 const Order = mongoose.model("Order", OrderSchema);
