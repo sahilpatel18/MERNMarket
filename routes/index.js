@@ -6,6 +6,7 @@ const bcrypt = require("bcrypt");
 const User = require("../models/user.model");
 const jwt = require("jsonwebtoken");
 const Order = require("../models/order.model");
+const verifyToken = require("./verifyToken");
 const jsonParser = bodyParser.json();
 
 router.get("/products", (req, res) => {
@@ -80,7 +81,7 @@ router.post("/login", async (req, res) => {
 
 // })
 
-router.post("/order", (req, res) => {
+router.post("/order", verifyToken, (req, res) => {
   const cart = req.body;
   const order = new Order(cart);
 
@@ -136,7 +137,7 @@ router.put("/product/:id", (req, res) => {
   });
 });
 
-router.delete("/delete/:id", (req, res) => {
+router.delete("/delete/:id", verifyToken, (req, res) => {
   const id = req.params.id;
   Product.deleteOne({ _id: id }, (err, foundObj) => {
     if (err) {
