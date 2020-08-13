@@ -25,32 +25,18 @@ const Login = () => {
     //     </button>
     //   </form>
     // </div>
-    <div className="container py-5">
+    <div className='container py-5'>
       <h1>Login</h1>
       <form>
-        <div class='form-group'>
+        <div className='form-group'>
           <label for='username'>Username</label>
-          <input
-            type='text'
-            name='username'
-            id='username'
-            class='form-control'
-            value=''
-          />
+          <input type='text' name='username' className='form-control' />
         </div>
-        <div class='form-group'>
+        <div className='form-group'>
           <label for='password'>Password</label>
-          <input
-            type='password'
-            name='password'
-            id='password'
-            class='form-control'
-            value=''
-          />
+          <input type='password' name='password' className='form-control' />
         </div>
-        <button disabled='' class='btn btn-primary'>
-          Login
-        </button>
+        <button className='btn btn-primary'>Login</button>
       </form>
     </div>
   );
