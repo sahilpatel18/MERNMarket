@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useParams, Link } from "react-router-dom";
+import { useParams } from "react-router-dom";
 
 const ProductDetails = () => {
   let { id } = useParams();
@@ -60,14 +60,14 @@ const ProductDetails = () => {
                   className='form-control mr-5 '
                   style={{ width: "90px" }}
                 />
-                <Link to='/cart'>
+         
                   <button
                     className='btn btn-primary btn-md my-0 p'
                     type='submit'
                   >
                     Add to cart
                   </button>
-                </Link>
+        
               </form>
             </div>
           </div>
