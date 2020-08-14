@@ -29,6 +29,9 @@ const Navbar = () => {
           <Link className='nav-item nav-link' to='/register'>
             Register
           </Link>
+          <Link className="nav-item nav-link" to='/cart'>
+          Cart
+          </Link>
         </div>
       </div>
     </nav>
