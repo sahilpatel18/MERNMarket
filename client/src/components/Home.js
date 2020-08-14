@@ -12,16 +12,16 @@ const Home = () => {
       }
       const data = await response.json();
       setProducts(data);
-    };
+    }
     fetchProducts();
   }, []);
 
   return (
-    <div className="row justify-content-center">
-        {products.map((product) => {
-          return <ProductCard name={product.name} price={product.price} />;
-        })}
-      </div>
+    <div className='row justify-content-center'>
+      {products.map((product) => {
+        return <ProductCard product={product} key={product.id} />;
+      })}
+    </div>
   );
 };
 
