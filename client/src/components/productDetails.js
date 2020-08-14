@@ -18,12 +18,12 @@ const ProductDetails = () => {
   }, []);
 
   return (
-    <main className='mt-5 pt-4'>
+    <main className='mt-1 pt-4'>
       <div className='container dark-grey-text mt-5'>
         <div className='row wow fadeIn'>
           <div className='col-md-6 mb-4'>
             <img
-              src='https://mdbootstrap.com/img/Photos/Horizontal/E-commerce/Products/14.jpg'
+              src={product.imageURL}
               className='img-fluid'
               alt=''
             />
