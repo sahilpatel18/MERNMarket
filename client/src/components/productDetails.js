@@ -22,11 +22,7 @@ const ProductDetails = () => {
       <div className='container dark-grey-text mt-5'>
         <div className='row wow fadeIn'>
           <div className='col-md-6 mb-4'>
-            <img
-              src={product.imageURL}
-              className='img-fluid'
-              alt=''
-            />
+            <img src={product.imageURL} className='img-fluid' alt='' />
           </div>
 
           <div className='col-md-6 mb-4'>
@@ -42,7 +38,7 @@ const ProductDetails = () => {
               <h1 className=' font-weight-bold'>{product.name}</h1>
 
               <p className='h3'>
-                <span>${product.price}</span>
+                <span>{product.price}</span>
               </p>
 
               <p>
@@ -53,21 +49,30 @@ const ProductDetails = () => {
               </p>
 
               <form className='d-flex justify-content-left'>
+                <div className="form-group"> 
+
+                <select className='form-control mr-5'>
+                  <option>1</option>
+                  <option>2</option>
+                  <option>3</option>
+                  <option>4</option>
+                  <option>5</option>
+                </select>
+                </div>
+
+                {/*                 
                 <input
                   type='number'
-                  value='1'
+                  value={quantity}
                   aria-label='Search'
+
                   className='form-control mr-5 '
                   style={{ width: "90px" }}
-                />
-         
-                  <button
-                    className='btn btn-primary btn-md my-0 p'
-                    type='submit'
-                  >
-                    Add to cart
-                  </button>
-        
+                /> */}
+
+                <button className='btn btn-primary ml-5 btn-md my-0 p' type='submit'>
+                  Add to cart
+                </button>
               </form>
             </div>
           </div>
