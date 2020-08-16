@@ -9,7 +9,7 @@ const ProductCard = ({ product: { _id: id, name, price, imageURL } }) => {
           <img className='card-img-top' src={imageURL} alt='Card image cap' />
           <div className='card-body'>
             <h5 className='card-title'>{name}</h5>
-            <p className='card-text'>Price: {price}</p>
+            <p className='card-text'>Price: ${price}</p>
             <Link to={`/products/${id}`} className='btn btn-primary'>
               View
             </Link>
