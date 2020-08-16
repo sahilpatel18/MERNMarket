@@ -12,20 +12,4 @@ const OrderSchema = new Schema({
 const Order = mongoose.model("Order", OrderSchema);
 
 
-const result1 = Order.aggregate(
-  [
-    {
-      $group:
-        {
-          totalAmount: { $sum: { $multiply: [ "$$price", "$$quantity" ] } },
-          count: { $sum: 1 }
-        }
-    }
-  ]
-)
-
-console.log(result1);
-
-
-
 module.exports = Order;
