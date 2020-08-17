@@ -1,10 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { addToCart } from "../actions";
+import { number } from "joi";
 
 const ProductDetails = () => {
+  const dispatch = useDispatch();
   let { id } = useParams();
-  const [product, setProduct] = useState([]);
-
+  const [product, setProduct] = useState({});
+  const [quantity, setQuantity] = useState(1);
   const getProductInformation = async () => {
     const response = await fetch(`/api/products/${id}`);
     if (!response.ok) {
@@ -38,7 +42,7 @@ const ProductDetails = () => {
               <h1 className=' font-weight-bold'>{product.name}</h1>
 
               <p className='h3'>
-                <span>{product.price}</span>
+                <span>${product.price}</span>
               </p>
 
               <p>
@@ -49,29 +53,29 @@ const ProductDetails = () => {
               </p>
 
               <form className='d-flex justify-content-left'>
-                <div className="form-group"> 
+                <div className='form-group'>
+                 
 
-                <select className='form-control mr-5'>
-                  <option>1</option>
-                  <option>2</option>
-                  <option>3</option>
-                  <option>4</option>
-                  <option>5</option>
-                </select>
+                  <input
+                    type='number'
+                    aria-label='Search'
+                    value={quantity}
+                    className='form-control mr-5 '
+                    style={{ width: "90px" }}
+                    onChange={e => setQuantity(e.target.value)}
+                  />
                 </div>
 
-                {/*                 
-                <input
-                  type='number'
-                  value={quantity}
-                  aria-label='Search'
-
-                  className='form-control mr-5 '
-                  style={{ width: "90px" }}
-                /> */}
-
-                <button className='btn btn-primary ml-5 btn-md my-0 p' type='submit'>
-                  Add to cart
+                <button
+                  onClick={(e) => {
+                    e.preventDefault();
+                    dispatch({ type: "ADD_TO_CART", payload: {...product, quantity} });
+                    const total = quantity * product.price;
+                    dispatch({ type: "UPDATE_TOTAL", payload: total });
+                  }}
+                  className='btn btn-primary ml-5 btn-md my-0 p'
+                >
+                  Add To Cart
                 </button>
               </form>
             </div>
