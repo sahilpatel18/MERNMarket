@@ -55,7 +55,7 @@ router.post("/register", async (req, res) => {
     const salt = await bcrypt.genSalt(10);
     user.password = await bcrypt.hash(user.password, salt);
     await user.save();
-    res.send('User Saved To DB');
+    res.send("User Saved To DB");
   }
 });
 
@@ -81,7 +81,7 @@ router.post("/login", async (req, res) => {
 
 // })
 
-router.post("/order", verifyToken, (req, res) => {
+router.post("/order", (req, res) => {
   const cart = req.body;
   const order = new Order(cart);
 
@@ -92,17 +92,6 @@ router.post("/order", verifyToken, (req, res) => {
       console.log("Order saved in database!");
     }
   });
-
-  Order.aggregate([
-    {
-      $group: {
-        _id: {
-          username: { $username: "$username" },
-          totalAmount: { $sum: { $multiply: ["$price", "$quantity"] } },
-        },
-      },
-    },
-  ]);
 });
 
 router.put("/product/:id", (req, res) => {
@@ -137,7 +126,7 @@ router.put("/product/:id", (req, res) => {
   });
 });
 
-router.delete("/delete/:id", verifyToken, (req, res) => {
+router.delete("/delete/:id", (req, res) => {
   const id = req.params.id;
   Product.deleteOne({ _id: id }, (err, foundObj) => {
     if (err) {
