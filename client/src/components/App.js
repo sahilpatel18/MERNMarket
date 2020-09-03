@@ -8,7 +8,6 @@ import productDetails from "./productDetails";
 import Cart from './Cart';
 
 const App = () => {
-
   return (
     <BrowserRouter>
       <div className='app'>

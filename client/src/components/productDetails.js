@@ -2,13 +2,12 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { addToCart } from "../actions";
-import { number } from "joi";
-
 const ProductDetails = () => {
   const dispatch = useDispatch();
   let { id } = useParams();
   const [product, setProduct] = useState({});
   const [quantity, setQuantity] = useState(1);
+
   const getProductInformation = async () => {
     const response = await fetch(`/api/products/${id}`);
     if (!response.ok) {
@@ -20,7 +19,7 @@ const ProductDetails = () => {
   useEffect(() => {
     getProductInformation();
   }, []);
-
+  
   return (
     <main className='mt-1 pt-4'>
       <div className='container dark-grey-text mt-5'>
