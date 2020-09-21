@@ -1,0 +1,11 @@
+export const ADD_TO_CART = "ADD_TO_CART"
+export const REMOVE_FROM_CART = "REMOVE_FROM_CART"
+export const UPDATE_TOTAL = "UPDATE_TOTAL"
+export const EDIT_FROM_CART = "EDIT_FROM_CART"
+
+export const GET_ERRORS = "GET_ERRORS";
+export const USER_LOADING = "USER_LOADING";
+export const SET_CURRENT_USER = "SET_CURRENT_USER";
+export const TERMINATE_CART = "TERMINATE_CART" 
+export const USER_ORDER = 'USER_ORDER'
+export const UPDATE_ITEM_QUANTITY = "UPDATE_ITEM_QUANTITY"
