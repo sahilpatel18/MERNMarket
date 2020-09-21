@@ -1,12 +1,18 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
-import { addToCart } from "../actions";
+import { useDispatch } from "react-redux";
+import { toast } from "react-toastify";
+import { useSelector } from "react-redux";
+import "react-toastify/dist/ReactToastify.css";
+import { useHistory } from "react-router-dom";
+
 const ProductDetails = () => {
+  const history = useHistory();
   const dispatch = useDispatch();
   let { id } = useParams();
   const [product, setProduct] = useState({});
   const [quantity, setQuantity] = useState(1);
+  const auth = useSelector((state) => state.auth.isAuthenticated);
 
   const getProductInformation = async () => {
     const response = await fetch(`/api/products/${id}`);
@@ -15,23 +21,27 @@ const ProductDetails = () => {
     }
     setProduct(await response.json());
   };
-
   useEffect(() => {
     getProductInformation();
   }, []);
-  
+
   return (
     <main className='mt-1 pt-4'>
       <div className='container dark-grey-text mt-5'>
+        <button
+          onClick={() => history.goBack()}
+          className='btn btn-primary btn-md mb-3 p'
+        >
+          Back
+        </button>
         <div className='row wow fadeIn'>
           <div className='col-md-6 mb-4'>
             <img src={product.imageURL} className='img-fluid' alt='' />
           </div>
-
           <div className='col-md-6 mb-4'>
             <div className='p-4'>
               <div className='mb-3'>
-                <a href=''>
+                <a>
                   <span className='badge badge-warning badge-secondary'>
                     Reviews
                   </span>
@@ -53,29 +63,51 @@ const ProductDetails = () => {
 
               <form className='d-flex justify-content-left'>
                 <div className='form-group'>
-                 
-
                   <input
                     type='number'
                     aria-label='Search'
+                    min='1'
+                    max='10'
                     value={quantity}
                     className='form-control mr-5 '
                     style={{ width: "90px" }}
-                    onChange={e => setQuantity(e.target.value)}
+                    onChange={(e) => setQuantity(e.target.value)}
                   />
                 </div>
-
-                <button
-                  onClick={(e) => {
-                    e.preventDefault();
-                    dispatch({ type: "ADD_TO_CART", payload: {...product, quantity} });
-                    const total = quantity * product.price;
-                    dispatch({ type: "UPDATE_TOTAL", payload: total });
-                  }}
-                  className='btn btn-primary ml-5 btn-md my-0 p'
-                >
-                  Add To Cart
-                </button>
+                {auth ? (
+                  <button
+                    onClick={(e) => {
+                      e.preventDefault();
+                      dispatch({
+                        type: "ADD_TO_CART",
+                        payload: { ...product, quantity },
+                      });
+                      const total = quantity * product.price;
+                      dispatch({ type: "UPDATE_TOTAL", payload: total });
+                      toast.success("Added To Cart", {
+                        toastId: "onetime",
+                      });
+                    }}
+                    className='btn btn-primary ml-5 btn-md my-0 p'
+                  >
+                    Add To Cart
+                  </button>
+                ) : (
+                  <button
+                    onClick={(e) => {
+                      e.preventDefault();
+                      toast.error(
+                        "Must Login or Register to Add Item to Cart",
+                        {
+                          toastId: "onetime",
+                        }
+                      );
+                    }}
+                    className='btn btn-primary ml-5 btn-md my-0 p'
+                  >
+                    Add To Cart
+                  </button>
+                )}
               </form>
             </div>
           </div>
