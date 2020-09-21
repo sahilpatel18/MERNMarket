@@ -5,14 +5,21 @@ const mongoose = require("mongoose");
 const app = express();
 const PORT = process.env.PORT || 5000;
 const URI = process.env.MONGO_URI;
-const shoproutes = require("./routes/index");
-const cookieParser = require("cookie-parser");
+
+const users = require("./routes");
+
 const cors = require("cors");
 
+app.use(
+  bodyParser.urlencoded({
+    extended: true,
+  })
+);
 app.use(bodyParser.json());
-app.use(cookieParser());
-app.use("/api", shoproutes);
 app.use(cors());
+app.use(express.urlencoded({ extended: true }));
+
+app.use("/api", users);
 
 mongoose.connect(
   URI,
@@ -25,7 +32,6 @@ mongoose.connect(
     }
   }
 );
-
 
 app.use(express.static("./client/build"));
 const path = require("path");
