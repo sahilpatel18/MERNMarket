@@ -19,7 +19,7 @@ const Home = () => {
   return (
     <div className='row justify-content-center'>
       {products.map((product) => {
-        return <ProductCard product={product} key={product}/>;
+        return <ProductCard product={product} key={product} />;
       })}
     </div>
   );
