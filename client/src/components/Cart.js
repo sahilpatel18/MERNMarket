@@ -1,12 +1,14 @@
 import React from "react";
-import { connect } from "mongoose";
 import { useSelector, useDispatch } from "react-redux";
+import { Link } from "react-router-dom";
+import { removeFromCart } from "../actions/index";
 
 const Cart = () => {
-  let item = useSelector((state) => state.addedItems);
-  let total = useSelector((state) => state.total)
+  let item = useSelector((state) => state.cart.addedItems);
+  let total = useSelector((state) => state.cart.total);
   let totalAmount = (Math.round(total * 100) / 100).toFixed(2);
   let dispatch = useDispatch();
+
   return (
     <div className='container'>
       <table className='table'>
@@ -27,31 +29,46 @@ const Cart = () => {
           </tr>
         </thead>
         <tbody>
-          {item.map((product) => {
-            return (
-              <tr>
-                <td>{product.name}</td>
-                <td>${product.price}</td>
-                <td>{product.quantity}</td>
-                <button
-                  onClick={(e) => {
-                    e.preventDefault()
-                    dispatch({
-                      type: "REMOVE_FROM_CART",
-                      payload: product
-                    });
-                  }}
-                  className='btn btn-outline-danger'
-                >
-                  Remove
-                </button>
-              </tr>
-            );
-          })}
+          {item &&
+            item.map((product) => {
+              return (
+                <tr>
+                  <td>{product.name}</td>
+                  <td>${product.price}</td>
+                  <td>{product.quantity}</td>
+                  <button
+                    onClick={(e) => {
+                      e.preventDefault();
+                      dispatch(removeFromCart(product));
+                    }}
+                    className='btn btn-outline-danger'
+                  >
+                    Remove
+                  </button>
+                </tr>
+              );
+            })}
         </tbody>
       </table>
-      
-      Total: ${totalAmount}
+      <strong>Total: ${totalAmount}</strong>
+      {totalAmount > 0 ? (
+        <span>
+          <Link to='/paynow'>
+            <button className='btn btn-primary ml-3 float-right'>Next</button>
+          </Link>
+        </span>
+      ) : (
+        <span>
+          <Link to='/paynow'>
+            <button
+              className='btn disabled btn-primary ml-3 float-right'
+              disabled
+            >
+              Next
+            </button>
+          </Link>
+        </span>
+      )}
     </div>
   );
 };
