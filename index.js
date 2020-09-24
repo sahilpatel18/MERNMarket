@@ -4,7 +4,7 @@ const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
 const app = express();
 const PORT = process.env.PORT || 5000;
-const URI = process.env.MONGO_URI;
+const MONGO_URI = process.env.MONGO_URI;
 
 const users = require("./routes");
 
@@ -16,7 +16,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use("/api", users);
 
 mongoose.connect(
-  URI,
+  MONGO_URI,
   { useNewUrlParser: true, useUnifiedTopology: true },
   (err) => {
     if (!err) {
