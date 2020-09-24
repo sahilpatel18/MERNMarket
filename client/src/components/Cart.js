@@ -11,21 +11,15 @@ const Cart = () => {
 
   return (
     <div className='container'>
-      <table className='table'>
+      <table className='table table-striped '>
         <thead>
           <tr>
-            <th className='border-0 bg-light'>
-              <div className='p-2 px-3 text-uppercase'>Product</div>
+            <th scope="col" className='border-0 bg-light p-2 px-3 text-uppercase'>
+              Product
             </th>
-            <th className='border-0 bg-light'>
-              <div className='py-2 text-uppercase'>Price</div>
-            </th>
-            <th className='border-0 bg-light'>
-              <div className='py-2 text-uppercase'>Quantity</div>
-            </th>
-            <th className='border-0 bg-light'>
-              <div className='py-2 text-uppercase'>Remove</div>
-            </th>
+            <th scope="col" className='border-0 bg-light py-2 text-uppercase'>Price</th>
+            <th scope="col" className='border-0 bg-light py-2 text-uppercase'>Quantity</th>
+            <th scope="col" className='border-0 bg-light py-2 text-uppercase'>Remove</th>
           </tr>
         </thead>
         <tbody>
@@ -45,6 +39,7 @@ const Cart = () => {
                   >
                     Remove
                   </button>
+                
                 </tr>
               );
             })}

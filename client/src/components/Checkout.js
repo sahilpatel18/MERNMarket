@@ -1,7 +1,7 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
-import { postUserOrder } from "../actions";
+import { postUserOrder, terminateCart } from "../actions";
 
 const Checkout = () => {
   let dispatch = useDispatch();
@@ -28,11 +28,12 @@ const Checkout = () => {
   };
   const handleClick = () => {
     dispatch(postUserOrder(myData));
+    dispatch(terminateCart())
     history.push("/order");
   };
 
   return (
-    <div className='container'>
+    <div className="container">
       <div className='card mb-4 mt-3'>
         <div className='card-body'>
           <h5 className='mb-3'>Checkout</h5>

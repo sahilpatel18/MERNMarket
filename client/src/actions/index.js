@@ -77,10 +77,9 @@ export const setCurrentUser = (decoded) => {
   };
 };
 
-const terminateCart = (cart) => {
+export const terminateCart = () => {
   return {
-    type: TERMINATE_CART,
-    payload: cart,
+    type: TERMINATE_CART
   };
 };
 
@@ -108,5 +107,5 @@ export const logoutUser = () => (dispatch) => {
   localStorage.removeItem("jwtToken");
   setAuthToken(false);
   dispatch(setCurrentUser({}));
-  dispatch(terminateCart([]));
+  dispatch(terminateCart());
 };
