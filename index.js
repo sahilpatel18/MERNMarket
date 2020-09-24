@@ -9,12 +9,6 @@ const URI = process.env.MONGO_URI;
 const users = require("./routes");
 
 const cors = require("cors");
-
-app.use(
-  bodyParser.urlencoded({
-    extended: true,
-  })
-);
 app.use(bodyParser.json());
 app.use(cors());
 app.use(express.urlencoded({ extended: true }));
@@ -33,8 +27,14 @@ mongoose.connect(
   }
 );
 
-app.use(express.static("./client/build"));
+mongoose.connection.on("connected", () => {
+  console.log("mongoose connected");
+});
+
+app.use(express.static("client/build"));
+
 const path = require("path");
+
 app.get("*", (req, res) => {
   res.sendFile(path.resolve(__dirname, "client", "build", "index.html"));
 });
