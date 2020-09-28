@@ -26,7 +26,7 @@ mongoose.connect(
     }
   }
 );
-
+ 
 mongoose.connection.on("connected", () => {
   console.log("mongoose connected");
 });
