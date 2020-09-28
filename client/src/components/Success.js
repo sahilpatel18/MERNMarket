@@ -6,7 +6,7 @@ const Success = () => {
 
   return (
     <div className='container'>
-      <table className='table-striped'>
+      <table>
         <thead>
           <tr>
             <th className='border-0 bg-light'>
