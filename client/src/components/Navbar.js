@@ -26,8 +26,8 @@ const Navbar = () => {
   };
 
   return (
-    <nav className='navbar navbar-expand-lg navbar-dark bg-primary'>
-      <Link className='navbar-brand' to='/'>
+    <nav class='navbar navbar-expand-lg navbar-dark bg-primary'>
+      <Link className='navbar-brand mx-auto order-0 ' to='/'>
         MERN
       </Link>
       <button
@@ -41,45 +41,62 @@ const Navbar = () => {
       >
         <span className='navbar-toggler-icon'></span>
       </button>
-      <div className='collapse navbar-collapse' id='navbarNavAltMarkup'>
-        <div className='navbar-nav'>
-          {auth ? (
-            <>
-              <Link className='nav-item nav-link active' to='/'>
-                Products<span className='sr-only'>(current)</span>
-              </Link>
-              <Link
-                onClick={onLogoutClick}
-                className='nav-item nav-link'
-                to='/register'
-              >
-                Logout
-              </Link>
-              <Link className='nav-item nav-link' to='/cart'>
-                Cart
-              </Link>
-              <Link className='nav-item nav-link' to='/userorder'>
-                Orders
-              </Link>
-            </>
-          ) : (
-            <>
-              <Link className='nav-item nav-link active' to='/'>
-                Products<span className='sr-only'>(current)</span>
-              </Link>
-              <Link className='nav-item nav-link' to='/login'>
-                Login
-              </Link>
-              <Link className='nav-item nav-link' to='/register'>
-                Register
-              </Link>
-              <Link className='nav-item nav-link' to='/cart'>
-                Cart
-              </Link>
-            </>
-          )}
-        </div>
-      </div>
+      {auth ? (
+        <>
+          <div
+            class='navbar-collapse collapse w-100 order-3 dual-collapse2'
+            id='navbarNavAltMarkup'
+          >
+            <ul class='navbar-nav ml-auto'>
+              <li class='nav-item'>
+                <Link class='nav-link' to='/'>
+                  Products
+                </Link>
+              </li>
+              <li class='nav-item'>
+                <Link class='nav-link' to='/cart'>
+                  Cart
+                </Link>
+              </li>
+              <li class='nav-item'>
+                <Link class='nav-link' to='/userorder'>
+                  Orders
+                </Link>
+              </li>
+              <li class='nav-item'>
+                <Link onClick={onLogoutClick} className='nav-item nav-link'>
+                  Logout
+                </Link>
+              </li>
+            </ul>
+          </div>
+        </>
+      ) : (
+        <>
+          <div
+            class='navbar-collapse collapse w-100 order-3 dual-collapse2'
+            id='navbarNavAltMarkup'
+          >
+            <ul class='navbar-nav ml-auto'>
+              <li class='nav-item'>
+                <Link class='nav-link' to='/'>
+                  Products
+                </Link>
+              </li>
+              <li class='nav-item'>
+                <Link class='nav-link' to='/login'>
+                  Login
+                </Link>
+              </li>
+              <li class='nav-item'>
+                <Link class='nav-link' to='/register'>
+                  Register
+                </Link>
+              </li>
+            </ul>
+          </div>
+        </>
+      )}
     </nav>
   );
 };
